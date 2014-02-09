@@ -1,0 +1,232 @@
+﻿@model  WMS.Web.Models.WorkflowMappingModel
+@{
+    ViewBag.Title = "Step 3. Workflow Mapping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@Html.Partial("ModalTemplates/_Confirmation")
+@Html.Partial("ModalTemplates/_Status")
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Step 3. Workflow mapping.</strong></h3>
+
+            </div>
+            <div class="panel-body small">
+                <div id="transaction-node">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search here..." autocomplete="off"
+                                       name="searchString" id="searchString">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit" id="btnSearch">
+                                        Search
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper small">
+                        <div id="DataTable"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-7">
+        <div id="transaction">
+            @using (Html.BeginForm())
+            {
+                <div id="business-process" class="form-group">
+                    <div class="page-header-title"><strong>Business Process</strong></div>
+                    <div id="Process" class="editor-field">
+                        @Html.TextBoxFor(model => model.WorkflowName, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                    <div class="editor-field process">
+                        @Html.DropDownListFor(model => model.ProcessId, Model.ProcessList, string.Empty, new { @class = "combobox combobox-medium" })
+                    </div>
+                    <div class="editor-field subProcess">
+
+                        <select id="SubProcessId" class="combobox combobox-medium small">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="editor-field classification">
+                        <select id="ClassificationId" class="combobox combobox-medium small">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="left">
+                        <button id="btnSearchWorkflowMapping" class="btn btn-large btn-success" type="submit">
+                            Search mapping
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.HiddenFor(model => model.SecuredId)
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.NodeId)
+                    <div class="page-header-title"><strong>Workflow Mapping</strong></div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.WorkflowName, new { @class = "form-control", @readonly = "readonly" })
+                                <p class="small">Selected workflow.</p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="editor-field">
+                                <select id="options" class="combobox combobox-medium">
+                                    <option value="single">Single Assignee</option>
+                                    <option value="multiple">Multiple Assignee</option>
+                                </select>
+                                <p class="small">Choose type.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="operator-container" class="editor-field hide">
+                        @Html.DropDownListFor(model => model.Operator, Model.OperatorList, string.Empty, new { @class = "combobox-medium combobox", @readonly = "readonly" })
+                        <p class="small">Choose logic for multuiple assignee.</p>
+                    </div>
+                    <div class="editor-field">
+                        <select id="Assignee" class="combobox combobox-medium small">
+                            <option value=""></option>
+                        </select>
+                        <p id="note-assignee" class="small">Specify single approver.</p>
+                    </div>
+                    <div class="editor-field">
+                        <select id="NoticeTo" class="combobox combobox-medium small">
+                            <option value=""></option>
+                        </select>
+                        <p id="note-alertTo" class="small">Note: Users under this role are not part of the escalation but will be notified under this level.(Optional)</p>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.SLA, new { @class = "form-control" })
+                        <p class="small">Indicate SLA in days.</p>
+                    </div>
+                </div>
+                
+
+
+                <div class="left">
+                    <button id="btnAddLevel" class="btn btn-large btn-success" type="submit">
+                        Add Level
+                    </button>
+
+
+                </div>
+
+
+            }
+        </div>
+
+
+        <div id="mapping">
+            <table id="WorkflowTable" class="table table-condensed table-responsive table-hover small"></table>
+        </div>
+
+
+
+        <div class="right">
+            <button id="btnSkip" class="btn btn-large btn-success" type="button">
+                Skip
+            </button>
+            <button id="btnSaveAndNext" class="btn btn-large btn-success" type="button">
+                Save
+            </button>
+            <button id="btnNext" class="btn btn-large btn-success" type="button">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#DataTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 17,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            columnSelectable: false,
+            actions: {
+                listAction: '@Url.Action("NodeListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '0.5%',
+                    display: function (data) {
+                        var $img = $('<a data-toggle="tooltip" title="Click to manage." class="glyphicon glyphicon-th-list pointer" ' + '></a>');
+                        $img.on('click', function (event) {
+                            event.preventDefault();
+                            var url = "/DocumentMapping/Index/" + data.record.WorklowSecuredId + '/' + data.record.NodeSecuredId;
+                            window.location = url;
+                            return false;
+                        });
+                        return $img;
+                    }
+                },
+                WorkflowName: {
+                    title: 'Workflow Name'
+                },
+                Delete: {
+                    title: '',
+                    width: '1.1%',
+                    display: function (data) {
+                        var $img = $('<a data-toggle="tooltip" title="remove this item" class="glyphicon glyphicon-trash pointer" ' + '></a>');
+                        $img.on('click', function (event) {
+                            event.preventDefault();
+                            $('#modalConfirmation #item').empty().append(data.record.WorkflowName);
+                            $('#modalConfirmation').modal('show');
+                            $('#Id').val(data.record.Id);
+                            $('#Item').val(data.record.WorkflowName);
+                            return false;
+                        });
+                        return $img;
+                    }
+                }
+
+            }
+        });
+
+        //Load all records when page is first shown
+        $('#transaction-node #DataTable').jtable('load',
+            {
+                id: $('#Id').val()
+            }
+         );
+
+        $('#transaction-node #btnSearch').click(function (e) {
+            e.preventDefault();
+            var searhString = $('#searchString').val();
+            $('#transaction-node #DataTable').jtable('load', {
+                searchString: searhString,
+                id: $('#Id').val()
+            });
+        });
+
+    });
+</script>
+
+
+@Html.Hidden("New", Url.Action("SaveDocumentMapping"))
+@Html.Hidden("Add", Url.Action("AddDocument"))
+@Html.Hidden("RedirectAction", Url.Action("Index", "WorkflowMapping"))
