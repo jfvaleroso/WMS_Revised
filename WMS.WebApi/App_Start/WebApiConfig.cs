@@ -30,15 +30,23 @@ namespace WMS.WebApi
              defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty }
              );
 
+             config.Routes.MapHttpRoute(
+           name: "GetNotificationMapping_Status",
+           routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{status}",
+           defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, status = string.Empty }
+           );
+
               config.Routes.MapHttpRoute(
               name: "GetWorkflowMapping_Level",
               routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}",
               defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = 0 }
               );
 
+           
+
               config.Routes.MapHttpRoute(
               name: "GetWorkflowMapping_Roles",
-              routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}/{*roles}",
+              routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}/{roles}",
               defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = 0, roles = string.Empty }
               );
              #endregion

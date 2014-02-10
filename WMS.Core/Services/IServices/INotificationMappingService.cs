@@ -14,5 +14,6 @@ namespace WMS.Core.Services.IServices
         NotificationMapping GetNotificationMappingByWorkflowAndStatus(Workflow workflow, Status status);
         void DeleteNotificationMapping(Workflow workflow);
         List<NotificationMapping> GetDataByNode(string nodeId);
+        List<NotificationMapping> GetDataByNode(string nodeId, string status);
     }
 }

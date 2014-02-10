@@ -129,6 +129,11 @@ namespace WMS.Core.Services.Implementation
             return this.notificationMappingRepository.GetDataByNode(nodeId);
         }
 
+        public List<NotificationMapping> GetDataByNode(string nodeId, string status)
+        {
+            return this.notificationMappingRepository.GetDataByNode(nodeId,status);
+        }
+
       
     }
 }

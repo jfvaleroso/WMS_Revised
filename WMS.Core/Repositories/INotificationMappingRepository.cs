@@ -9,5 +9,6 @@ namespace WMS.Core.Repositories
     public interface INotificationMappingRepository : IRepository<NotificationMapping, long>
     {
         List<NotificationMapping> GetDataByNode(string nodeId);
+        List<NotificationMapping> GetDataByNode(string nodeId, string status);
     }
 }

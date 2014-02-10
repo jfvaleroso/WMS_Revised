@@ -14,5 +14,11 @@ namespace WMS.NHibernateBase.Repositories
         {
             return this.FindAll(MappingFilter.Search(nodeId), MappingFilter.Alias);
         }
+
+
+        public List<NotificationMapping> GetDataByNode(string nodeId, string status)
+        {
+            return this.FindAll(MappingFilter.Search(nodeId,status), MappingFilter.Alias);
+        }
     }
 }

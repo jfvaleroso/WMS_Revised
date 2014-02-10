@@ -9,5 +9,6 @@ namespace WMS.Core.Repositories
     public interface IDocumentMappingRepository : IRepository<DocumentMapping, long>
     {
         List<DocumentMapping> GetDataByNode(string nodeId);
+      
     }
 }

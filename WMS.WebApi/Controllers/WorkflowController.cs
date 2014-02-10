@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -12,7 +14,7 @@ namespace WMS.WebApi.Controllers
 {
     public class WorkflowController : ApiController
     {
-         #region Constructor
+        #region Constructor
         private readonly IWorkflowService workflowService;
         private readonly IDocumentMappingService documentMappingService;
         private readonly INotificationMappingService notificationMappingService;
@@ -32,113 +34,6 @@ namespace WMS.WebApi.Controllers
             this.nodeService = nodeService;
         }
         #endregion
-
-
-        //#region NotificationMapping
-        //public IEnumerable<NotificationMappingModel> GetNotificationMappingByWorkflow(long id)
-        //{
-        //   var workflow= this.workflowService.GetDataById(id);
-        //   var notificationMappingList= this.notificationMappingService.GetFilteredDataByWorkflow(workflow);
-        //   List<NotificationMappingModel> modelList = new List<NotificationMappingModel>();
-        //   foreach (var item in notificationMappingList)
-        //   {
-        //       NotificationMappingModel model = new NotificationMappingModel();
-        //       model.EmailContent = item.EmailContent;
-        //       model.SMSContent = item.SMSContent;
-        //       modelList.Add(model);
-        //   }
-        //   return modelList;
-        //}
-        //public NotificationMappingModel GetNotificationMappingByWorkflowAndStatus(long id, int status)
-        //{
-        //    var workflow = this.workflowService.GetDataById(id);
-        //    var stat= this.statusService.GetDataById(status);
-        //    var notificationMapping = this.notificationMappingService.GetNotificationMappingByWorkflowAndStatus(workflow,stat);
-        //    NotificationMappingModel model = new NotificationMappingModel();
-        //    model.EmailContent= notificationMapping.EmailContent;
-        //    model.SMSContent= notificationMapping.SMSContent;
-        //    model.StatusCode= notificationMapping.Status.Code;
-        //    return model;
-        //}
-        //#endregion
-        //#region Document Mapping
-        //public IEnumerable<DocumentMappingModel> GetDocumentMappingByWorkflow(long id)
-        //{
-        //    var workflow = this.workflowService.GetDataById(id);
-        //    var documentMappingList = this.documentMappingService.GetFilteredDataByWorkflow(workflow);
-        //    List<DocumentMappingModel> modelList = new List<DocumentMappingModel>();
-        //    foreach (var item in documentMappingList)
-        //    {
-        //        DocumentMappingModel model = new DocumentMappingModel();
-        //        model.Code = item.Document.Code;
-        //        model.Name = item.Document.Name;
-        //        model.Description = item.Document.Description;
-        //        model.Mandatory = item.Mandatory;
-        //        model.WorkflowCode = item.Workflow.Code;
-        //        model.WorkflowId = item.Workflow.Id;
-        //        model.Active = item.Active;
-        //        modelList.Add(model);
-        //    }
-        //    return modelList;
-        //}
-        //#endregion
-        //#region Workflow Mapping
-        //public IEnumerable<WorkflowMappingModel> GetWorkflowMappingByWorkflow(long id)
-        //{
-        //    var workflow = this.workflowService.GetDataById(id);
-        //    var workflowMappingList = this.workflowMappingService.GetFilteredDataByWorkflow(workflow);
-        //    List<WorkflowMappingModel> modelList = new List<WorkflowMappingModel>();
-        //    foreach (var item in workflowMappingList)
-        //    {
-        //        WorkflowMappingModel model = new WorkflowMappingModel();
-        //        model.LevelId = item.LevelId;
-        //        model.SLA = item.SLA;
-        //        model.Operator = item.Operator;
-        //        model.Approver = item.Approver;
-        //        model.AlertTo = item.Approver;
-        //        model.SMSNotification = item.SMSNotification;
-        //        model.EmailNotification = item.EmailNotification;
-        //        modelList.Add(model);
-        //    }
-        //    return modelList;
-        //}
-        //public WorkflowMappingModel GetWorkflowMappingByWorkflowAndLevel(long id,int level)
-        //{
-        //    var workflow = this.workflowService.GetDataById(id);
-        //    WorkflowMapping workflowMapping = this.workflowMappingService.GetCurrentApproverByWorkflowAndLevel(workflow, level);
-        //    WorkflowMappingModel model = new WorkflowMappingModel();
-        //    model.AlertTo = workflowMapping.AlertTo;
-        //    model.Approver = workflowMapping.AlertTo;
-        //    model.LevelId = workflowMapping.LevelId;
-        //    model.Operator = workflowMapping.Operator;
-        //    model.SLA = workflowMapping.SLA;
-        //    model.SMSNotification = workflowMapping.SMSNotification;
-        //    model.EmailNotification = workflowMapping.EmailNotification;
-        //    return model;
-        //}
-        //#endregion
-        //#region Workflow
-        //public WorkflowModel GetWorkflowByCode(string code)
-        //{
-        //    var workflow = this.workflowService.GetWorkflowByCode(code);
-        //    WorkflowModel model = new WorkflowModel();
-        //    model.ClassificationCode = workflow.Classification.Code;
-        //    model.ClassificationName = workflow.Classification.Name;
-        //    model.Code = workflow.Code;
-        //    model.Description = workflow.Description;
-        //    model.Name = workflow.Name;
-        //    model.ProcessCode = workflow.Process.Code;
-        //    model.ProcessName = workflow.Process.Name;
-        //    model.SubProcessCode = workflow.SubProcess.Code;
-        //    model.SubProcessName = workflow.SubProcess.Name;
-        //    model.ClassificationCode = workflow.Classification.Code;
-        //    model.ClassificationName = workflow.Classification.Name;
-        //    model.Active = workflow.Active;
-        //    return model;
-        //}
-        //#endregion
-
-
         #region Workflow Mapping
         /// <summary>
         /// GetWorkflowMapping
@@ -189,38 +84,92 @@ namespace WMS.WebApi.Controllers
             }
             return model;
         }
-        public WorkflowMappingModel GetWorkflowMappingByLevel(string workflow, string process, string subProcess, string classification, int level, string[] roles)
+        public List<string> GetPendingApproval(string workflow, string process, string subProcess, string classification, int level, string roles)
         {
             Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
             var workflowMapping = this.workflowMappingService.GetDataByNode(node.Id.ToString(), level).FirstOrDefault();
-          
-
-            WorkflowMappingModel model = new WorkflowMappingModel();
+            List<string> output = new List<string>();
             if (workflowMapping != null)
             {
+                string[] approved = roles.Split(',');
+                string[] assignee = workflowMapping.Assignee.Split(',');
+                foreach (var p in assignee)
+                {
+                    if (!approved.Contains(p))
+                    {
+                        output.Add(p);
+                    }
+                }
+            }
+            else { throw new HttpResponseException(HttpStatusCode.NotFound); }
+            return  output;
+        }
+        //public async Task<IHttpActionResult> GetBookDetail(int id)
+        //{
+        //     Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+        //     var workflowMapping = await this.workflowMappingService.GetDataByNode(node.Id.ToString(), level).FirstOrDefaultAsync();
+        //     if (workflowMapping == null)
+        //     {
+        //        return NotFound();
+        //     }
+        //     return Ok(book);
+        //}
+        #endregion
+        #region Document Mapping
+        public IEnumerable<DocumentMappingModel> GetDocumentMapping(string workflow, string process, string subProcess, string classification)
+        {
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var documentMappingList = this.documentMappingService.GetDataByNode(node.Id.ToString());
+            List<DocumentMappingModel> modelList = new List<DocumentMappingModel>();
+            foreach (var item in documentMappingList)
+            {
+                DocumentMappingModel model = new DocumentMappingModel();
+                model.Active = item.Active;
+                model.Code = item.Document.Code;
+                model.Description = item.Document.Description;
+                model.Mandatory = item.Mandatory;
+                model.Name = item.Document.Name;
+                model.NodeId = item.Node.Id;
+                modelList.Add(model);
+            }
+            return modelList;
+        }
+        #endregion
+        #region Notification Mapping
+        public IEnumerable<NotificationMappingModel> GetNotificationMapping(string workflow, string process, string subProcess, string classification)
+        {
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var notificationMappingList = this.notificationMappingService.GetDataByNode(node.Id.ToString());
+            List<NotificationMappingModel> modelList = new List<NotificationMappingModel>();
+            foreach (var item in notificationMappingList)
+            {
+                NotificationMappingModel model = new NotificationMappingModel();
+                model.EmailContent = item.EmailContent;
+                model.SMSContent = item.SMSContent;
+                model.StatusCode = item.Status.Code;
+                model.StatusName = item.Status.Name;
+                modelList.Add(model);
+            }
+            return modelList;
 
-                //roles.Contains(roles);
+        }
+        public NotificationMappingModel GetNotificationMappingByStatus(string workflow, string process, string subProcess, string classification,string status)
+        {
+           
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var notificationMapping = this.notificationMappingService.GetDataByNode(node.Id.ToString(), status).FirstOrDefault();
+            NotificationMappingModel model = new NotificationMappingModel();
+            if (notificationMapping != null)
+            {
 
-                //model.LevelId = workflowMapping.LevelId;
-                //model.SLA = workflowMapping.SLA;
-                //model.Operator = workflowMapping.Operator;
-                //model.Assignee = workflowMapping.Assignee;
-                //model.AlertTo = workflowMapping.AlertTo;
-                //model.SMSNotification = workflowMapping.SMSNotification;
-                //model.EmailNotification = workflowMapping.EmailNotification;
-                //model.Active = workflowMapping.Active;
+                model.EmailContent = notificationMapping.EmailContent;
+                model.SMSContent = notificationMapping.SMSContent;
+                model.StatusCode = notificationMapping.Status.Code;
+                model.StatusName = notificationMapping.Status.Name;
 
             }
             return model;
         }
-     
         #endregion
-
-
-
-
-
-
-
     }
 }

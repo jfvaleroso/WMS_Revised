@@ -11,5 +11,7 @@ namespace WMS.WebApi.Entities
         public string SMSContent { get; set; }
         public string EmailContent { get; set; }
         public string StatusCode { get; set; }
+        public string StatusName { get; set; }
+
     }
 }

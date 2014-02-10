@@ -30,4 +30,3 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\bin\Debug\Application
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\bin\Debug\Application.Extensions.pdb
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.pdb
-D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.csprojResolveAssemblyReference.cache

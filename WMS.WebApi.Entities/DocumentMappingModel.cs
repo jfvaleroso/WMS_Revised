@@ -9,8 +9,8 @@ namespace WMS.WebApi.Entities
     public class DocumentMappingModel
     {
 
-        public long WorkflowId { get; set; }
-        public string WorkflowCode { get; set; }
+        public long NodeId { get; set; }
+  
 
         public bool Mandatory { get; set; } 
         public string Code { get; set; }
