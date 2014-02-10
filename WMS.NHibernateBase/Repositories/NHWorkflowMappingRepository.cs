@@ -19,5 +19,9 @@ namespace WMS.NHibernateBase.Repositories
         {
             return this.FindAll(MappingFilter.Search(nodeId), MappingFilter.Alias);
         }
+        public List<WorkflowMapping> GetDataByNode(string nodeId, int levelId)
+        {
+            return this.FindAll(MappingFilter.Search(nodeId, levelId), MappingFilter.Alias);
+        }
     }
 }

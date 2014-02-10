@@ -143,30 +143,77 @@ namespace WMS.WebApi.Controllers
         /// <summary>
         /// GetWorkflowMapping
         /// </summary>
-        /// <param name="workflow"></param>
-        /// <param name="process"></param>
-        /// <param name="subProcess"></param>
-        /// <param name="classification"></param>
+        /// <param name="workflow code"></param>
+        /// <param name="process code"></param>
+        /// <param name="subProcess code"></param>
+        /// <param name="classification code"></param>
         /// <returns></returns>
-        //public IEnumerable<WorkflowMappingModel> GetWorkflowMapping(string workflow, string process, string subProcess, string classification)
-        //{
-        //    var workflow = this.workflowService.GetDataById(id);
-        //    var workflowMappingList = this.workflowMappingService.GetFilteredDataByWorkflow(workflow);
-        //    List<WorkflowMappingModel> modelList = new List<WorkflowMappingModel>();
-        //    foreach (var item in workflowMappingList)
-        //    {
-        //        WorkflowMappingModel model = new WorkflowMappingModel();
-        //        model.LevelId = item.LevelId;
-        //        model.SLA = item.SLA;
-        //        model.Operator = item.Operator;
-        //        model.Approver = item.Approver;
-        //        model.AlertTo = item.Approver;
-        //        model.SMSNotification = item.SMSNotification;
-        //        model.EmailNotification = item.EmailNotification;
-        //        modelList.Add(model);
-        //    }
-        //    return modelList;
-        //}
+        /// 
+        public IEnumerable<WorkflowMappingModel> GetWorkflowMapping(string workflow, string process, string subProcess, string classification)
+        {
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var workflowMappingList = this.workflowMappingService.GetDataByNode(node.Id.ToString());
+            List<WorkflowMappingModel> modelList = new List<WorkflowMappingModel>();
+            foreach (var item in workflowMappingList)
+            {
+                WorkflowMappingModel model = new WorkflowMappingModel();
+                model.LevelId = item.LevelId;
+                model.SLA = item.SLA;
+                model.Operator = item.Operator;
+                model.Assignee = item.Assignee;
+                model.AlertTo = item.AlertTo;
+                model.SMSNotification = item.SMSNotification;
+                model.EmailNotification = item.EmailNotification;
+                model.Active = item.Active;
+                modelList.Add(model);
+            }
+            return modelList;
+        }
+        public WorkflowMappingModel GetWorkflowMappingByLevel(string workflow, string process, string subProcess, string classification, int level = 0)
+        {
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var workflowMapping = this.workflowMappingService.GetDataByNode(node.Id.ToString(),level).FirstOrDefault();
+            WorkflowMappingModel model = new WorkflowMappingModel();
+            if (workflowMapping!= null)
+            {
+
+                model.LevelId = workflowMapping.LevelId;
+                model.SLA = workflowMapping.SLA;
+                model.Operator = workflowMapping.Operator;
+                model.Assignee = workflowMapping.Assignee;
+                model.AlertTo = workflowMapping.AlertTo;
+                model.SMSNotification = workflowMapping.SMSNotification;
+                model.EmailNotification = workflowMapping.EmailNotification;
+                model.Active = workflowMapping.Active;
+ 
+            }
+            return model;
+        }
+        public WorkflowMappingModel GetWorkflowMappingByLevel(string workflow, string process, string subProcess, string classification, int level, string[] roles)
+        {
+            Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
+            var workflowMapping = this.workflowMappingService.GetDataByNode(node.Id.ToString(), level).FirstOrDefault();
+          
+
+            WorkflowMappingModel model = new WorkflowMappingModel();
+            if (workflowMapping != null)
+            {
+
+                //roles.Contains(roles);
+
+                //model.LevelId = workflowMapping.LevelId;
+                //model.SLA = workflowMapping.SLA;
+                //model.Operator = workflowMapping.Operator;
+                //model.Assignee = workflowMapping.Assignee;
+                //model.AlertTo = workflowMapping.AlertTo;
+                //model.SMSNotification = workflowMapping.SMSNotification;
+                //model.EmailNotification = workflowMapping.EmailNotification;
+                //model.Active = workflowMapping.Active;
+
+            }
+            return model;
+        }
+     
         #endregion
 
 

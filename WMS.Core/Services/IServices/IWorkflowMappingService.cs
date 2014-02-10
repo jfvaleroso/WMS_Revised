@@ -14,6 +14,7 @@ namespace WMS.Core.Services.IServices
 
         void DeleteWorkflowMapping(Workflow workflow);
         List<WorkflowMapping> GetDataByNode(string nodeId);
+        List<WorkflowMapping> GetDataByNode(string nodeId, int levelId);
 
     }
 }

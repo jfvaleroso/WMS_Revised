@@ -10,5 +10,7 @@ namespace WMS.Core.Repositories
     {
         List<Node> GetDataWithPagingAndSearch(string searchString, long id, int pageNumber, int pageSize, out long total);
         Node GetNode(string workflow, string process, string subProcess, string classification);
+        Node GetNodeByCode(string workflow, string process, string subProcess, string classification);
+       
     }
 }

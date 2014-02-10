@@ -22,10 +22,18 @@ namespace WMS.NHibernateBase.Repositories
             return this.GetDataWithPagingAndSearch(NodeFilter.Search(searchString, id), NodeFilter.Alias, NodeFilter.Orders(), pageNumber, pageSize, out total);
 
         }
+        //get node by workflow Id, process id,subprocess id, classification id
         public Node GetNode(string workflow, string process, string subProcess, string classification)
         {
             return this.FindAll(NodeFilter.Search(workflow, process, subProcess, classification), NodeFilter.Alias).FirstOrDefault();
 
         }
+        //get node by workflow code, process code,subprocess code, classification code
+        public Node GetNodeByCode(string workflow, string process, string subProcess, string classification)
+        {
+            return this.FindAll(NodeFilter.SearchByCode(workflow, process, subProcess, classification,"na"), NodeFilter.Alias).FirstOrDefault();
+
+        }
+      
     }
 }

@@ -11,37 +11,39 @@ namespace WMS.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
-            config.Routes.MapHttpRoute(
-              name: "DefaultApiWithAction",
-              routeTemplate: "api/{controller}/{action}/{id}",
-              defaults: new { id = RouteParameter.Optional }
-          );
+            // config.Routes.MapHttpRoute(
+            //  name: "DefaultApiWithAction",
+            //  routeTemplate: "api/{controller}/{action}/{id}",
+            //  defaults: new { id = RouteParameter.Optional }
+            //);
 
-            config.Routes.MapHttpRoute(
-             name: "DefaultApiWithActionAndParam",
-             routeTemplate: "api/{controller}/{action}/{id}/{level}",
-             defaults: new { id = RouteParameter.Optional, level = RouteParameter.Optional }
-  );
+             #region Workflow Mapping Routing
              config.Routes.MapHttpRoute(
-             name: "DefaultApiByCode",
-             routeTemplate: "api/{controller}/{code}",
-             defaults: new { code = RouteParameter.Optional }
-         );
+             name: "GetWorkflowMapping_Classification",
+             routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}",
+             defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty }
+             );
 
+              config.Routes.MapHttpRoute(
+              name: "GetWorkflowMapping_Level",
+              routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}",
+              defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = 0 }
+              );
 
-            // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
-            // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
-            // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
-            //config.EnableQuerySupport();
+              config.Routes.MapHttpRoute(
+              name: "GetWorkflowMapping_Roles",
+              routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}/{*roles}",
+              defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = 0, roles = string.Empty }
+              );
+             #endregion
+             
 
-            // To disable tracing in your application, please comment out or remove the following line of code
-            // For more information, refer to: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
 
             //format json

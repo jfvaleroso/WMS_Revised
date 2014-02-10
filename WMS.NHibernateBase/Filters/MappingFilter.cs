@@ -32,6 +32,26 @@ namespace WMS.NHibernateBase.Filters
                 criterion.Add(conjunction);
                 return criterion;
         }
+        public static List<ICriterion> Search(string nodeId, int levelId)
+        {
+            List<ICriterion> criterion = new List<ICriterion>();
+            Dictionary<string, string> aliases = new Dictionary<string, string>();
+            //add cretrion
+            Conjunction conjunction = Restrictions.Conjunction();
+
+            if (!string.IsNullOrEmpty(nodeId))
+            {
+                aliases.Add("Node", "n");
+                conjunction.Add(Restrictions.Eq("n.Id", Convert.ToInt64(nodeId)));
+            }
+           
+            conjunction.Add(Restrictions.Eq("LevelId", levelId));
+
+
+            Alias = aliases;
+            criterion.Add(conjunction);
+            return criterion;
+        }
 
         #endregion
     }

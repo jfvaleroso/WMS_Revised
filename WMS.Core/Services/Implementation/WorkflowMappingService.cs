@@ -144,6 +144,10 @@ namespace WMS.Core.Services.Implementation
         {
           return  this.workflowMappingRepository.GetDataByNode(nodeId);
         }
+        public List<WorkflowMapping> GetDataByNode(string nodeId, int levelId)
+        {
+            return this.workflowMappingRepository.GetDataByNode(nodeId, levelId);
+        }
     }
 }
 

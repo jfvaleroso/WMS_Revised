@@ -9,5 +9,6 @@ namespace WMS.Core.Repositories
     public interface IWorkflowMappingRepository: IRepository<WorkflowMapping, long>, ISearchRepository<WorkflowMapping>
     {
         List<WorkflowMapping> GetDataByNode(string nodeId);
+        List<WorkflowMapping> GetDataByNode(string nodeId, int levelId);
     }
 }

@@ -84,7 +84,15 @@ namespace WMS.Core.Services.Implementation
             return new Node();
            
         }
+        public Node GetNodeByCode(string workflow, string process, string subProcess, string classification)
+        {
+            var node = this.nodeRepository.GetNodeByCode(workflow, process, subProcess, classification);
+            if (node != null)
+            { return node; }
+            return new Node();
 
+        }
+      
 
 
     }
