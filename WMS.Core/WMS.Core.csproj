@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IActivityLogsRepository.cs" />
     <Compile Include="Repositories\IClassificationRepository.cs" />
     <Compile Include="Repositories\IDocumentMappingRepository.cs" />
     <Compile Include="Repositories\IDocumentRepository.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Repositories\ISubProcessRepository.cs" />
     <Compile Include="Repositories\IWorkflowMappingRepository.cs" />
     <Compile Include="Repositories\IWorkflowRepository.cs" />
+    <Compile Include="Services\Implementation\ActivityLogsService.cs" />
     <Compile Include="Services\Implementation\BaseService.cs" />
     <Compile Include="Services\Implementation\DocumentMappingService.cs" />
     <Compile Include="Services\Implementation\NodeService.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Services\Implementation\StatusService.cs" />
     <Compile Include="Services\Implementation\WorkflowMappingService.cs" />
     <Compile Include="Services\Implementation\WorkflowService.cs" />
+    <Compile Include="Services\IServices\IActivityLogsService.cs" />
     <Compile Include="Services\IServices\IClassificationService.cs" />
     <Compile Include="Services\IServices\IDocumentMappingService.cs" />
     <Compile Include="Services\IServices\IDocumentService.cs" />

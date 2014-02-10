@@ -5,9 +5,8 @@ using System.Text;
 
 namespace WMS.Entities
 {
-    public class ActivityLogs
+    public class ActivityLogs : Entity<long>
     {
-        public virtual long Id { get; set; }
         public virtual string Type { get; set; }
         public virtual string Description { get; set; }
         public virtual DateTime Timestamp { get; set; }

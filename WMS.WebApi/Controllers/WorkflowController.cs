@@ -17,18 +17,19 @@ namespace WMS.WebApi.Controllers
         private readonly IDocumentMappingService documentMappingService;
         private readonly INotificationMappingService notificationMappingService;
         private readonly IWorkflowMappingService workflowMappingService;
+        private readonly INodeService nodeService;
         private readonly IStatusService statusService;
     
-
-
         public WorkflowController(IWorkflowService workflowService, IDocumentMappingService documentMappingService,
             INotificationMappingService notificationMappingService, IWorkflowMappingService workflowMappingService,
-            IStatusService statusService)
+            IStatusService statusService,
+            INodeService nodeService)
         {
             this.workflowService = workflowService;
             this.documentMappingService = documentMappingService;
             this.notificationMappingService = notificationMappingService;
-            this.workflowMappingService = workflowMappingService;  
+            this.workflowMappingService = workflowMappingService;
+            this.nodeService = nodeService;
         }
         #endregion
 
@@ -137,6 +138,36 @@ namespace WMS.WebApi.Controllers
         //}
         //#endregion
 
+
+        #region Workflow Mapping
+        /// <summary>
+        /// GetWorkflowMapping
+        /// </summary>
+        /// <param name="workflow"></param>
+        /// <param name="process"></param>
+        /// <param name="subProcess"></param>
+        /// <param name="classification"></param>
+        /// <returns></returns>
+        //public IEnumerable<WorkflowMappingModel> GetWorkflowMapping(string workflow, string process, string subProcess, string classification)
+        //{
+        //    var workflow = this.workflowService.GetDataById(id);
+        //    var workflowMappingList = this.workflowMappingService.GetFilteredDataByWorkflow(workflow);
+        //    List<WorkflowMappingModel> modelList = new List<WorkflowMappingModel>();
+        //    foreach (var item in workflowMappingList)
+        //    {
+        //        WorkflowMappingModel model = new WorkflowMappingModel();
+        //        model.LevelId = item.LevelId;
+        //        model.SLA = item.SLA;
+        //        model.Operator = item.Operator;
+        //        model.Approver = item.Approver;
+        //        model.AlertTo = item.Approver;
+        //        model.SMSNotification = item.SMSNotification;
+        //        model.EmailNotification = item.EmailNotification;
+        //        modelList.Add(model);
+        //    }
+        //    return modelList;
+        //}
+        #endregion
 
 
 
