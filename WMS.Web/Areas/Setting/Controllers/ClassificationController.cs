@@ -10,6 +10,7 @@ using WMS.Entities;
 using WMS.Web.Filter;
 using WMS.Core.Helper.Common;
 using WMS.Helper.Transaction;
+using Exchange.Web.Filters;
 
 namespace WMS.Web.Areas.Setting.Controllers
 {
@@ -67,6 +68,7 @@ namespace WMS.Web.Areas.Setting.Controllers
             model.SubProcessList = this.service.GetSubProcessList(0);
             return View(model);
         }
+        [Audit]
         [HttpPost]
         public JsonResult New(ClassificationModel model)
         {
@@ -130,6 +132,7 @@ namespace WMS.Web.Areas.Setting.Controllers
             }
             return RedirectToAction("Index");
         }
+        [Audit]
         [HttpPost]
         public JsonResult Manage(ClassificationModel model)
         {
