@@ -19,6 +19,11 @@
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
+
+        <div id="loader" class="hide">l<img src="http://preloaders.net/preloaders/712/Floating%20rays.gif" /></div>
+        <ul id="products" />
+
+
         <h3>We suggest the following steps:</h3>
         <ol class="round">
             <li class="one">
@@ -44,13 +49,16 @@
     </section>
 </div>
 
-<div id="loader" class="hide">loading</div>
-<ul id="products" />
 
 <script>
    
-    $("#loader").removeClass("hide");
-    geneatedata();
+    $('#loader').removeClass('hide')
+    setTimeout(function () {
+        geneatedata();
+    },2000);
+    
+
+    
     function geneatedata()
     {
     $(function () {
@@ -59,11 +67,13 @@
         $.ajax({
             url: "/api/workflow/GetDocumentMapping/sos/sbp/sbp-term/na",
             type: "Get",
+            
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     $('<li>', { text: data[i].name }).appendTo($('#products'));
                 }
-                $("#loader").fadeOut(100000);
+                $('#loader').addClass('hide');
+                
             }
         });
 
