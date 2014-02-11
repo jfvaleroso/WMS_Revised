@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -64,7 +65,7 @@ namespace WMS.WebApi.Controllers
             }
             return modelList;
         }
-        public WorkflowMappingModel GetWorkflowMappingByLevel(string workflow, string process, string subProcess, string classification, int level = 0)
+        public HttpResponseMessage GetWorkflowMappingByLevel(string workflow, string process, string subProcess, string classification, int level = 0)
         {
             Node node = this.nodeService.GetNodeByCode(workflow, process, subProcess, classification);
             var workflowMapping = this.workflowMappingService.GetDataByNode(node.Id.ToString(),level).FirstOrDefault();
@@ -79,9 +80,9 @@ namespace WMS.WebApi.Controllers
                 model.SMSNotification = workflowMapping.SMSNotification;
                 model.EmailNotification = workflowMapping.EmailNotification;
                 model.Active = workflowMapping.Active;
-                
+                return this.Request.CreateResponse(HttpStatusCode.OK, model);
             }
-            return model;
+            return this.Request.CreateResponse(HttpStatusCode.NotFound);
             
         }
         public List<string> GetPendingApproval(string workflow, string process, string subProcess, string classification, int level, string roles)
@@ -171,5 +172,9 @@ namespace WMS.WebApi.Controllers
             return model;
         }
         #endregion
+
+         
     }
+
+
 }

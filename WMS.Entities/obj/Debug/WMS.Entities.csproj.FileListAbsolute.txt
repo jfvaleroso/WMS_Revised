@@ -27,4 +27,3 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Entities\bin\Debug\WMS.Entities.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Entities\bin\Debug\WMS.Entities.pdb
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Entities\obj\Debug\WMS.Entities.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Entities\obj\Debug\WMS.Entities.pdb
-D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Entities\obj\Debug\WMS.Entities.csprojResolveAssemblyReference.cache

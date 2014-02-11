@@ -43,3 +43,37 @@
         </ol>
     </section>
 </div>
+
+<div id="loader" class="hide">loading</div>
+<ul id="products" />
+
+<script>
+   
+    $("#loader").removeClass("hide");
+    geneatedata();
+    function geneatedata()
+    {
+    $(function () {
+        debugger;
+        // Send an AJAX request
+        $.ajax({
+            url: "/api/workflow/GetDocumentMapping/sos/sbp/sbp-term/na",
+            type: "Get",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('<li>', { text: data[i].name }).appendTo($('#products'));
+                }
+                $("#loader").fadeOut(100000);
+            }
+        });
+
+    });
+    }
+
+</script>
+
+<style>
+    .hide {
+        display:none;
+    }
+</style>
