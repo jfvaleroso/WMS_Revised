@@ -71,7 +71,6 @@ namespace WMS.WebApi.Controllers
             WorkflowMappingModel model = new WorkflowMappingModel();
             if (workflowMapping!= null)
             {
-
                 model.LevelId = workflowMapping.LevelId;
                 model.SLA = workflowMapping.SLA;
                 model.Operator = workflowMapping.Operator;
@@ -80,9 +79,10 @@ namespace WMS.WebApi.Controllers
                 model.SMSNotification = workflowMapping.SMSNotification;
                 model.EmailNotification = workflowMapping.EmailNotification;
                 model.Active = workflowMapping.Active;
- 
+                
             }
             return model;
+            
         }
         public List<string> GetPendingApproval(string workflow, string process, string subProcess, string classification, int level, string roles)
         {

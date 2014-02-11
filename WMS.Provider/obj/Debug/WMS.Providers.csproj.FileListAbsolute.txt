@@ -30,3 +30,4 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Provider\bin\Debug\WMS.Providers.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Provider\bin\Debug\WMS.Providers.pdb
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Provider\obj\Debug\WMS.Providers.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Provider\obj\Debug\WMS.Providers.pdb
+D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Provider\obj\Debug\WMS.Providers.csprojResolveAssemblyReference.cache

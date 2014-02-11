@@ -39,7 +39,7 @@ namespace WMS.WebApi
               config.Routes.MapHttpRoute(
               name: "GetWorkflowMapping_Level",
               routeTemplate: "api/{controller}/{action}/{workflow}/{process}/{subProcess}/{classification}/{level}",
-              defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = 0 }
+              defaults: new { workflow = string.Empty, process = string.Empty, subProcess = string.Empty, classification = string.Empty, level = RouteParameter.Optional }
               );
 
            

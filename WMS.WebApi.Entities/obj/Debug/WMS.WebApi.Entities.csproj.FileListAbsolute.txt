@@ -22,3 +22,4 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.WebApi.Entities\bin\Debug\WMS.WebApi.Ent
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.WebApi.Entities\bin\Debug\WMS.WebApi.Entities.pdb
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.WebApi.Entities\obj\Debug\WMS.WebApi.Entities.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.WebApi.Entities\obj\Debug\WMS.WebApi.Entities.pdb
+D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.WebApi.Entities\obj\Debug\WMS.WebApi.Entities.csprojResolveAssemblyReference.cache
