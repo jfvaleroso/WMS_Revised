@@ -83,6 +83,7 @@
                 $('#transaction form').validate().form();
             },
             complete: function (data) {
+              
             },
             error: function (data) {
                 alert('error');

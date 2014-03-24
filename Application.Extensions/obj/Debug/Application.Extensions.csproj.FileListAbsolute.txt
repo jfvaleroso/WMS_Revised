@@ -31,3 +31,8 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\bin\Debug\Application
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.dll
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.pdb
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\Application.Extensions\obj\Debug\Application.Extensions.csprojResolveAssemblyReference.cache
+C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\Application.Extensions\bin\Debug\Application.Extensions.dll
+C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\Application.Extensions\bin\Debug\Application.Extensions.pdb
+C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\Application.Extensions\obj\Debug\Application.Extensions.csprojResolveAssemblyReference.cache
+C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\Application.Extensions\obj\Debug\Application.Extensions.dll
+C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\Application.Extensions\obj\Debug\Application.Extensions.pdb

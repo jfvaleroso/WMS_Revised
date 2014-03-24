@@ -28,6 +28,5 @@ D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Configuration\obj\Debug\WMS.Configuratio
 D:\GITREPOSITORY\GITHUB\WMS_REVISED\WMS.Configuration\obj\Debug\WMS.Configurations.pdb
 C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\WMS.Configuration\bin\Debug\WMS.Configurations.dll
 C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\WMS.Configuration\bin\Debug\WMS.Configurations.pdb
-C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\WMS.Configuration\obj\Debug\WMS.Configurations.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\WMS.Configuration\obj\Debug\WMS.Configurations.dll
 C:\GITREPOSITORY\GITHUB\WMS_REVISED_FINAL\WMS.Configuration\obj\Debug\WMS.Configurations.pdb

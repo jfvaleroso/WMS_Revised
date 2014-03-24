@@ -180,7 +180,108 @@
 
             });
 
-        }
+        },
+
+
+        //main transaction
+        save: function (url) {
+            $.ajax({
+                url: url,
+                type: "post",
+                cache: false,
+                data: $('form').serialize(),
+                beforeSend: function () {
+                    $('form').validate().form();
+                },
+                complete: function (data) {                
+                },
+                error: function (data) {
+                },
+                success: function (data) {
+                    //saved
+                    if (data.code == '000') {
+                        $('#mainModal').modal('hide');
+                        $('#DataTable').jtable('load');
+                        //add notification
+                        $('#panel-status').removeClass().addClass('panel fade in panel-success');
+                        $('#general-status').empty().append(data.message + data.content);
+                        $('#alert').addClass('hide');
+
+                        //disable code modification
+                        $('#Code').attr('disabled', 'disabled');
+                        $('#SecuredId').val(data.result);
+                      
+                    }
+                    //modified
+                    else if (data.code == '001') {
+                        $('#mainModal').modal('hide');
+                        $('#DataTable').jtable('load');
+                        //add notification
+                        $('#panel-status').removeClass().addClass('panel fade in panel-success');
+                        $('#general-status').empty().append(data.message + data.content);
+                        $('#alert').addClass('hide');
+
+                        //disable code modification
+                        $('#Code').attr('disabled', 'disabled');
+                        $('#SecuredId').val(data.result);
+
+                    }
+                        //invalid
+                    else if (data.code == "007") {
+                        //  $('#alert').removeClass('hide');
+                        alert(data.result);
+
+                    }
+                        //existed
+                    else if (data.code == "003") {
+                        $('#alert').removeClass('hide');
+                        $('#notification').addClass('validation-summary-errors');
+                        $('#notification').empty().append('<ul><li>Code or Item already exists!</li></ul>');
+                        $('div.validation-summary-errors').addClass('hide');
+                       
+                    }
+                        //error
+                    else if (data.code == "005") {
+                        $('#alert').removeClass('hide');
+                        $('#general-status').empty().append('Error has occured!' + data.message);
+                        
+                    }
+
+                }
+            });
+
+        },
+        add: function (url)
+        {
+            $.ajax({
+                url: url,
+                type: "post",
+                data: $('form').serialize(),
+                beforeSend: function () {
+                    $('form').validate().form();
+                },
+                complete: function (data) {
+                },
+                error: function (data) {
+                },
+                success: function (data) {
+                    if (data.code == "003") {
+                        $('#alert').removeClass('hide');
+                        $('#notification').addClass('validation-summary-errors');
+                        $('#notification').empty().append('<ul><li>Item has alredy been added!</li></ul>');
+                        $('div.validation-summary-errors').addClass('hide');
+                    }
+                    else if (data.code == "007") {
+                        $('#alert').removeClass('hide');
+
+                    }
+                    else {
+                        $('#data-list').html(data);
+                        $('#alert').addClass('hide');
+                    }
+                }
+            });
+        },
 
     };
 }();
@@ -236,6 +337,27 @@ $(function () {
         business.removeItem($(this),'tr');
         return false;
     });
+
+    //save and next
+    //main workflow transaction
+    // post: save
+    $("#workflow #btnSave").click(function (event) {
+        event.preventDefault();
+        business.save('/workflow/New');
+    });
+
+    $("#workflow #btnNext").click(function (event) {
+        event.preventDefault();
+        window.location = '/DocumentMapping/Index/' + $("#SecuredId").val();
+    });
+
+    //document mapping// workflow mapping// notificaiton mapping
+    $("#btnAdd").click(function (event) {
+        event.preventDefault();
+        business.add('/documentmapping/New');
+    });
+
+
 
     
     
@@ -398,65 +520,10 @@ $(function () {
     //});
 
 
-    //main workflow transaction
-    // post: save
-    //$("#btnSaveAndNext").click(function (event) {
-    //    event.preventDefault();
-    //    $.ajax({
-    //        url: create,
-    //        type: "post",
-    //        cache: false,
-    //        data: $('form').serialize(),
-    //        beforeSend: function () {
-    //            $('form').validate().form();
-    //        },
-    //        complete: function (data) {
-    //        },
-    //        error: function (data) {
-                
-    //        },
-    //        success: function (data) {
-    //            //saved
-    //            if (data.code == '000') {
-    //                $('#mainModal').modal('hide');
-    //                $('#DataTable').jtable('load');
-    //                //add notification
-    //                $('#panel-status').removeClass().addClass('panel fade in panel-success');
-    //                $('#general-status').empty().append(data.message + data.content);
-    //                $('#alert').addClass('hide');
-    //                if (redirectAction != '' && data.result != '') {
-    //                    window.location = redirectAction + "/Index/" + data.result;
-    //                }
-    //                else {
-    //                    window.location = redirectAction;
-    //                }
 
 
-    //            }
-    //                //invalid
-    //            else if (data.code == "007") {
-    //                //  $('#alert').removeClass('hide');
-    //                alert(data.result);
-                 
-    //            }
-    //                //existed
-    //            else if (data.code == "003") {
-    //                $('#alert').removeClass('hide');
-    //                $('#notification').addClass('validation-summary-errors');
-    //                $('#notification').empty().append('<ul><li>Code or Item already exists!</li></ul>');
-    //                $('div.validation-summary-errors').addClass('hide');
-    //                alert(data.result);
-    //            }
-    //                //error
-    //            else if (data.code == "005") {
-    //                $('#alert').removeClass('hide');
-    //                $('#general-status').empty().append('Error has occured!' + data.message);
-    //                alert(data.result);
-    //            }
 
-    //        }
-    //    });
-    //});
+
     //// skip
     //$("#btnSkip").click(function (event) {
     //    event.preventDefault();

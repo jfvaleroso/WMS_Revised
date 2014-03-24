@@ -64,19 +64,21 @@
                  
                 </div>
 
-                <div class="right">
+                <div id="workflow" class="right">
                     <button id="btnCancel" class="btn btn-large btn-success" type="button">
                         Cancel
                     </button>
-                    <button id="btnSaveAndNext" class="btn btn-large btn-success" type="button">
-                        Save and Next
+                    <button id="btnSave" class="btn btn-large btn-success" type="button">
+                        Save 
+                    </button>
+                    <button id="btnNext" class="btn btn-large btn-success" type="button">
+                        Next
                     </button>
 
                 </div>
             }
-            @Html.Hidden("Item", Url.Action("Item"))
-            @Html.Hidden("New", Url.Action("New"))
-            @Html.Hidden("RedirectAction", Url.Action("Index", "DocumentMapping"))
+            
+            @Html.Hidden("SecuredId")      
             @Html.Hidden("CheckAvailability", Url.Action("CheckAvailability"))
 
         </div>

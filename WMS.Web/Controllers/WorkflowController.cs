@@ -67,11 +67,12 @@ namespace WMS.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Workflow workflow = new Workflow();
-                    bool ifExists = this.workflowService.CheckDataAndCodeIfExist(model);
-                    if (!ifExists)
+                    
+                    Workflow data = this.workflowService.GetWorkflowByCode(model.Code);
+                    //save new data
+                    if (data == null)
                     {
-                       
+                        Workflow workflow = new Workflow();
                         workflow.Code = model.Code.ToUpper();
                         workflow.Name = model.Name;
                         workflow.Description = model.Description;
@@ -82,7 +83,17 @@ namespace WMS.Web.Controllers
                         model.Id = workflow.Id;
                         return Json(new { result = Base.Encrypt(workflow.Id.ToString()), message = MessageCode.saved, code = StatusCode.saved, content = model.Name });
                     }
-                    return Json(new { result = StatusCode.existed, message = MessageCode.existed, code = StatusCode.existed });
+                    //update existing data
+                    else
+                    {
+                        data.Name = model.Name;
+                        data.Description = model.Description;
+                        data.Active = model.Active;
+                        data.DateModified = DateTime.Now;
+                        data.ModifiedBy = User.Identity.Name.ToString();
+                        this.workflowService.SaveChanges(data);
+                        return Json(new { result = Base.Encrypt(data.Id.ToString()), message = MessageCode.modified, code = StatusCode.modified, content = model.Name });                   
+                    }
                 }
                 return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
             }
